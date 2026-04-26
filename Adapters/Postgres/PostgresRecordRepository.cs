@@ -16,7 +16,7 @@ internal sealed class PostgresRecordRepository : IRecordRepository
     {
         string sql = $"SELECT * FROM {QuoteIdentifier(collection)} WHERE \"id\" = $1";
         await using NpgsqlCommand cmd = _dataSource.CreateCommand(sql);
-        cmd.Parameters.AddWithValue(id);
+        cmd.Parameters.AddWithValue(IdParameter(id));
         await using NpgsqlDataReader reader = await cmd.ExecuteReaderAsync(ct);
         return await reader.ReadAsync(ct) ? ReadRecord(reader) : null;
     }
@@ -72,7 +72,7 @@ internal sealed class PostgresRecordRepository : IRecordRepository
         IReadOnlyDictionary<string, object?> fields,
         CancellationToken ct)
     {
-        string id = Guid.NewGuid().ToString();
+        Guid id = Guid.NewGuid();
         var allFields = new Dictionary<string, object?>(fields) { ["id"] = id };
 
         string columns = string.Join(", ", allFields.Keys.Select(QuoteIdentifier));
@@ -112,7 +112,7 @@ internal sealed class PostgresRecordRepository : IRecordRepository
             setClauses.Add($"{QuoteIdentifier(key)} = ${parameters.Count}");
         }
 
-        parameters.Add(id);
+        parameters.Add(IdParameter(id));
         string sql =
             $"UPDATE {QuoteIdentifier(collection)} SET {string.Join(", ", setClauses)} " +
             $"WHERE \"id\" = ${parameters.Count} RETURNING *";
@@ -140,7 +140,7 @@ internal sealed class PostgresRecordRepository : IRecordRepository
     {
         string sql = $"DELETE FROM {QuoteIdentifier(collection)} WHERE \"id\" = $1";
         await using NpgsqlCommand cmd = _dataSource.CreateCommand(sql);
-        cmd.Parameters.AddWithValue(id);
+        cmd.Parameters.AddWithValue(IdParameter(id));
         int affected = await cmd.ExecuteNonQueryAsync(ct);
         if (affected == 0)
         {
@@ -178,4 +178,9 @@ internal sealed class PostgresRecordRepository : IRecordRepository
 
     private static string QuoteIdentifier(string name) =>
         '"' + name.Replace("\"", "\"\"", StringComparison.Ordinal) + '"';
+
+    // Pass Guid objects for UUID-typed id columns so Npgsql uses the uuid OID
+    // instead of text, avoiding "operator does not exist: uuid = text" errors.
+    private static object IdParameter(string id) =>
+        Guid.TryParse(id, out Guid guid) ? guid : id;
 }
