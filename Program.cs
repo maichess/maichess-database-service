@@ -1,16 +1,34 @@
-using MaichessDatabaseService.Services;
+using MaichessDatabaseService.Adapters;
+using MaichessDatabaseService.Adapters.Mongo;
+using MaichessDatabaseService.Adapters.Postgres;
+using MaichessDatabaseService.Domain;
+using MaichessDatabaseService.Grpc;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+string adapter = builder.Configuration["Database:Adapter"]
+    ?? throw new InvalidOperationException("Database:Adapter is not configured");
+string connectionString = builder.Configuration["Database:ConnectionString"]
+    ?? throw new InvalidOperationException("Database:ConnectionString is not configured");
+bool readOnly = builder.Configuration.GetValue<bool>("Database:ReadOnly");
+
+IRecordRepository repo = adapter.ToLowerInvariant() switch
+{
+    "postgres" => new PostgresRecordRepository(connectionString),
+    "mongo" => new MongoRecordRepository(connectionString),
+    _ => throw new InvalidOperationException($"Unknown Database:Adapter value: '{adapter}'. Expected 'postgres' or 'mongo'."),
+};
+
+if (readOnly)
+{
+    repo = new ReadOnlyRecordRepository(repo);
+}
+
+builder.Services.AddSingleton(repo);
 builder.Services.AddGrpc();
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
-// Configure the HTTP request pipeline.
-app.MapGrpcService<GreeterService>();
-app.MapGet("/",
-    () =>
-        "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
+app.MapGrpcService<DatabaseGrpcService>();
 
 app.Run();
