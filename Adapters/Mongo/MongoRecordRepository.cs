@@ -4,19 +4,22 @@ using MongoDB.Driver;
 
 namespace MaichessDatabaseService.Adapters.Mongo;
 
-internal sealed class MongoRecordRepository : IRecordRepository
+internal sealed class MongoRecordRepository : IRecordRepository, IDisposable
 {
-    private readonly IMongoDatabase db;
+    private readonly MongoClient _client;
+    private readonly IMongoDatabase _db;
 
     public MongoRecordRepository(string connectionString)
     {
-        var client = new MongoClient(connectionString);
-        db = client.GetDatabase("maichess");
+        _client = new MongoClient(connectionString);
+        _db = _client.GetDatabase("maichess");
     }
+
+    public void Dispose() => _client.Dispose();
 
     public async Task<DbRecord?> GetAsync(string collection, string id, CancellationToken ct)
     {
-        BsonDocument? doc = await GetCollection(collection)
+        BsonDocument? doc = await GetCollection(_db, collection)
             .Find(Builders<BsonDocument>.Filter.Eq("_id", id))
             .FirstOrDefaultAsync(ct);
         return doc is null ? null : ToRecord(doc);
@@ -29,7 +32,7 @@ internal sealed class MongoRecordRepository : IRecordRepository
         int offset,
         CancellationToken ct)
     {
-        IFindFluent<BsonDocument, BsonDocument> query = GetCollection(collection)
+        IFindFluent<BsonDocument, BsonDocument> query = GetCollection(_db, collection)
             .Find(BuildFilter(filter));
 
         if (offset > 0)
@@ -54,7 +57,7 @@ internal sealed class MongoRecordRepository : IRecordRepository
         string id = Guid.NewGuid().ToString();
         BsonDocument doc = FieldsToBson(fields);
         doc["_id"] = id;
-        await GetCollection(collection).InsertOneAsync(doc, cancellationToken: ct);
+        await GetCollection(_db, collection).InsertOneAsync(doc, cancellationToken: ct);
         return ToRecord(doc);
     }
 
@@ -67,7 +70,7 @@ internal sealed class MongoRecordRepository : IRecordRepository
         UpdateDefinition<BsonDocument> update = Builders<BsonDocument>.Update.Combine(
             fields.Select(kv => Builders<BsonDocument>.Update.Set(kv.Key, BsonValue.Create(kv.Value))));
 
-        BsonDocument? result = await GetCollection(collection)
+        BsonDocument? result = await GetCollection(_db, collection)
             .FindOneAndUpdateAsync(
                 Builders<BsonDocument>.Filter.Eq("_id", id),
                 update,
@@ -81,7 +84,7 @@ internal sealed class MongoRecordRepository : IRecordRepository
 
     public async Task DeleteAsync(string collection, string id, CancellationToken ct)
     {
-        DeleteResult result = await GetCollection(collection)
+        DeleteResult result = await GetCollection(_db, collection)
             .DeleteOneAsync(Builders<BsonDocument>.Filter.Eq("_id", id), ct);
 
         if (result.DeletedCount == 0)
@@ -90,8 +93,8 @@ internal sealed class MongoRecordRepository : IRecordRepository
         }
     }
 
-    private IMongoCollection<BsonDocument> GetCollection(string name) =>
-        db.GetCollection<BsonDocument>(name);
+    private static IMongoCollection<BsonDocument> GetCollection(IMongoDatabase database, string name) =>
+        database.GetCollection<BsonDocument>(name);
 
     private static FilterDefinition<BsonDocument> BuildFilter(IReadOnlyDictionary<string, object?> filter)
     {
