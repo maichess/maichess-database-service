@@ -126,12 +126,9 @@ internal sealed class PostgresRecordRepository : IRecordRepository
         try
         {
             await using NpgsqlDataReader reader = await cmd.ExecuteReaderAsync(ct);
-            if (!await reader.ReadAsync(ct))
-            {
-                throw new NotFoundException($"{collection}/{id} not found");
-            }
-
-            return ReadRecord(reader);
+            return !await reader.ReadAsync(ct)
+                ? throw new NotFoundException($"{collection}/{id} not found")
+                : ReadRecord(reader);
         }
         catch (PostgresException ex) when (ex.SqlState == "23505")
         {

@@ -12,12 +12,14 @@ string connectionString = builder.Configuration["Database:ConnectionString"]
     ?? throw new InvalidOperationException("Database:ConnectionString is not configured");
 bool readOnly = builder.Configuration.GetValue<bool>("Database:ReadOnly");
 
+#pragma warning disable CA2000 // Singleton lives for the application lifetime — disposal is intentional at process exit
 IRecordRepository repo = adapter.ToLowerInvariant() switch
 {
     "postgres" => new PostgresRecordRepository(connectionString),
     "mongo" => new MongoRecordRepository(connectionString),
     _ => throw new InvalidOperationException($"Unknown Database:Adapter value: '{adapter}'. Expected 'postgres' or 'mongo'."),
 };
+#pragma warning restore CA2000
 
 if (readOnly)
 {

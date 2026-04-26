@@ -9,12 +9,8 @@ internal sealed class DatabaseGrpcService(IRecordRepository repository) : Databa
 {
     public override async Task<GetResponse> Get(GetRequest request, ServerCallContext context)
     {
-        DbRecord? record = await repository.GetAsync(request.Collection, request.Id, context.CancellationToken);
-        if (record is null)
-        {
-            throw new RpcException(new Status(StatusCode.NotFound, $"{request.Collection}/{request.Id} not found"));
-        }
-
+        DbRecord record = await repository.GetAsync(request.Collection, request.Id, context.CancellationToken)
+            ?? throw new RpcException(new Status(StatusCode.NotFound, $"{request.Collection}/{request.Id} not found"));
         return new GetResponse { Record = StructConvert.ToStruct(record) };
     }
 
@@ -36,7 +32,7 @@ internal sealed class DatabaseGrpcService(IRecordRepository repository) : Databa
     {
         try
         {
-            Dictionary<string, object?> fields = StructConvert.ToDictionary(request.Record);
+            var fields = StructConvert.ToDictionary(request.Record);
             fields.Remove("id");
             DbRecord record = await repository.InsertAsync(request.Collection, fields, context.CancellationToken);
             return new InsertResponse { Record = StructConvert.ToStruct(record) };
@@ -55,7 +51,7 @@ internal sealed class DatabaseGrpcService(IRecordRepository repository) : Databa
     {
         try
         {
-            Dictionary<string, object?> fields = StructConvert.ToDictionary(request.Fields);
+            var fields = StructConvert.ToDictionary(request.Fields);
             DbRecord record = await repository.UpdateAsync(
                 request.Collection, request.Id, fields, context.CancellationToken);
             return new UpdateResponse { Record = StructConvert.ToStruct(record) };

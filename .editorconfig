@@ -147,6 +147,9 @@ dotnet_diagnostic.SA1101.severity = none
 # SA1200: Using directives placement — file-scoped namespaces put them outside
 dotnet_diagnostic.SA1200.severity = none
 
+# SA1309: Field names must not begin with underscore — conflicts with _camelCase naming rule
+dotnet_diagnostic.SA1309.severity = none
+
 # SA1204: Static before non-static ordering — not enforced in this project
 dotnet_diagnostic.SA1204.severity = none
 
