@@ -72,7 +72,7 @@ internal sealed class PostgresRecordRepository : IRecordRepository
         IReadOnlyDictionary<string, object?> fields,
         CancellationToken ct)
     {
-        Guid id = Guid.NewGuid();
+        var id = Guid.NewGuid();
         var allFields = new Dictionary<string, object?>(fields) { ["id"] = id };
 
         string columns = string.Join(", ", allFields.Keys.Select(QuoteIdentifier));
