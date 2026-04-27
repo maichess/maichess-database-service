@@ -3,6 +3,8 @@ using MaichessDatabaseService.Adapters.Mongo;
 using MaichessDatabaseService.Adapters.Postgres;
 using MaichessDatabaseService.Domain;
 using MaichessDatabaseService.Grpc;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +30,18 @@ if (readOnly)
 
 builder.Services.AddSingleton(repo);
 builder.Services.AddGrpc();
+
+string otlpEndpoint = Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT")
+    ?? "http://otel-collector:4317";
+
+string serviceName = Environment.GetEnvironmentVariable("OTEL_SERVICE_NAME")
+    ?? "database-service";
+
+builder.Services.AddOpenTelemetry()
+    .ConfigureResource(r => r.AddService(serviceName))
+    .WithTracing(t => t
+        .AddAspNetCoreInstrumentation()
+        .AddOtlpExporter(o => o.Endpoint = new Uri(otlpEndpoint)));
 
 WebApplication app = builder.Build();
 
