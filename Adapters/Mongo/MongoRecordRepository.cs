@@ -6,20 +6,20 @@ namespace MaichessDatabaseService.Adapters.Mongo;
 
 internal sealed class MongoRecordRepository : IRecordRepository, IDisposable
 {
-    private readonly MongoClient _client;
-    private readonly IMongoDatabase _db;
+    private readonly MongoClient client;
+    private readonly IMongoDatabase db;
 
     public MongoRecordRepository(string connectionString)
     {
-        _client = new MongoClient(connectionString);
-        _db = _client.GetDatabase("maichess");
+        client = new MongoClient(connectionString);
+        db = client.GetDatabase("maichess");
     }
 
-    public void Dispose() => _client.Dispose();
+    public void Dispose() => client.Dispose();
 
     public async Task<DbRecord?> GetAsync(string collection, string id, CancellationToken ct)
     {
-        BsonDocument? doc = await GetCollection(_db, collection)
+        BsonDocument? doc = await GetCollection(db, collection)
             .Find(Builders<BsonDocument>.Filter.Eq("_id", id))
             .FirstOrDefaultAsync(ct);
         return doc is null ? null : ToRecord(doc);
@@ -32,7 +32,7 @@ internal sealed class MongoRecordRepository : IRecordRepository, IDisposable
         int offset,
         CancellationToken ct)
     {
-        IFindFluent<BsonDocument, BsonDocument> query = GetCollection(_db, collection)
+        IFindFluent<BsonDocument, BsonDocument> query = GetCollection(db, collection)
             .Find(BuildFilter(filter));
 
         if (offset > 0)
@@ -57,7 +57,7 @@ internal sealed class MongoRecordRepository : IRecordRepository, IDisposable
         string id = Guid.NewGuid().ToString();
         BsonDocument doc = FieldsToBson(fields);
         doc["_id"] = id;
-        await GetCollection(_db, collection).InsertOneAsync(doc, cancellationToken: ct);
+        await GetCollection(db, collection).InsertOneAsync(doc, cancellationToken: ct);
         return ToRecord(doc);
     }
 
@@ -70,7 +70,7 @@ internal sealed class MongoRecordRepository : IRecordRepository, IDisposable
         UpdateDefinition<BsonDocument> update = Builders<BsonDocument>.Update.Combine(
             fields.Select(kv => Builders<BsonDocument>.Update.Set(kv.Key, BsonValue.Create(kv.Value))));
 
-        BsonDocument? result = await GetCollection(_db, collection)
+        BsonDocument? result = await GetCollection(db, collection)
             .FindOneAndUpdateAsync(
                 Builders<BsonDocument>.Filter.Eq("_id", id),
                 update,
@@ -84,7 +84,7 @@ internal sealed class MongoRecordRepository : IRecordRepository, IDisposable
 
     public async Task DeleteAsync(string collection, string id, CancellationToken ct)
     {
-        DeleteResult result = await GetCollection(_db, collection)
+        DeleteResult result = await GetCollection(db, collection)
             .DeleteOneAsync(Builders<BsonDocument>.Filter.Eq("_id", id), ct);
 
         if (result.DeletedCount == 0)

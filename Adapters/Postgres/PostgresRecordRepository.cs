@@ -5,17 +5,17 @@ namespace MaichessDatabaseService.Adapters.Postgres;
 
 internal sealed class PostgresRecordRepository : IRecordRepository
 {
-    private readonly NpgsqlDataSource _dataSource;
+    private readonly NpgsqlDataSource dataSource;
 
     public PostgresRecordRepository(string connectionString)
     {
-        _dataSource = NpgsqlDataSource.Create(connectionString);
+        dataSource = NpgsqlDataSource.Create(connectionString);
     }
 
     public async Task<DbRecord?> GetAsync(string collection, string id, CancellationToken ct)
     {
         string sql = $"SELECT * FROM {QuoteIdentifier(collection)} WHERE \"id\" = $1";
-        await using NpgsqlCommand cmd = _dataSource.CreateCommand(sql);
+        await using NpgsqlCommand cmd = dataSource.CreateCommand(sql);
         cmd.Parameters.AddWithValue(IdParameter(id));
         await using NpgsqlDataReader reader = await cmd.ExecuteReaderAsync(ct);
         return await reader.ReadAsync(ct) ? ReadRecord(reader) : null;
@@ -51,7 +51,7 @@ internal sealed class PostgresRecordRepository : IRecordRepository
         }
 
         string sql = $"SELECT * FROM {QuoteIdentifier(collection)} {where} {limitClause} {offsetClause}";
-        await using NpgsqlCommand cmd = _dataSource.CreateCommand(sql);
+        await using NpgsqlCommand cmd = dataSource.CreateCommand(sql);
         foreach (object? p in parameters)
         {
             cmd.Parameters.AddWithValue(p ?? DBNull.Value);
@@ -79,7 +79,7 @@ internal sealed class PostgresRecordRepository : IRecordRepository
         string paramNames = string.Join(", ", Enumerable.Range(1, allFields.Count).Select(i => $"${i}"));
         string sql = $"INSERT INTO {QuoteIdentifier(collection)} ({columns}) VALUES ({paramNames}) RETURNING *";
 
-        await using NpgsqlCommand cmd = _dataSource.CreateCommand(sql);
+        await using NpgsqlCommand cmd = dataSource.CreateCommand(sql);
         foreach (object? v in allFields.Values)
         {
             cmd.Parameters.AddWithValue(NormalizeValue(v) ?? DBNull.Value);
@@ -117,7 +117,7 @@ internal sealed class PostgresRecordRepository : IRecordRepository
             $"UPDATE {QuoteIdentifier(collection)} SET {string.Join(", ", setClauses)} " +
             $"WHERE \"id\" = ${parameters.Count} RETURNING *";
 
-        await using NpgsqlCommand cmd = _dataSource.CreateCommand(sql);
+        await using NpgsqlCommand cmd = dataSource.CreateCommand(sql);
         foreach (object? p in parameters)
         {
             cmd.Parameters.AddWithValue(p ?? DBNull.Value);
@@ -139,7 +139,7 @@ internal sealed class PostgresRecordRepository : IRecordRepository
     public async Task DeleteAsync(string collection, string id, CancellationToken ct)
     {
         string sql = $"DELETE FROM {QuoteIdentifier(collection)} WHERE \"id\" = $1";
-        await using NpgsqlCommand cmd = _dataSource.CreateCommand(sql);
+        await using NpgsqlCommand cmd = dataSource.CreateCommand(sql);
         cmd.Parameters.AddWithValue(IdParameter(id));
         int affected = await cmd.ExecuteNonQueryAsync(ct);
         if (affected == 0)
