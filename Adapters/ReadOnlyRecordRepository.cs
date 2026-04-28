@@ -23,4 +23,10 @@ internal sealed class ReadOnlyRecordRepository(IRecordRepository inner) : IRecor
 
     public Task DeleteAsync(string collection, string id, CancellationToken ct) =>
         throw new ReadOnlyViolationException();
+
+    public Task<long> DeleteWhereAsync(string collection, IReadOnlyDictionary<string, object?> filter, CancellationToken ct) =>
+        throw new ReadOnlyViolationException();
+
+    public Task<long> CountAsync(string collection, IReadOnlyDictionary<string, object?> filter, CancellationToken ct) =>
+        inner.CountAsync(collection, filter, ct);
 }

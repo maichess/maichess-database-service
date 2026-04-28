@@ -1,9 +1,11 @@
+using System.Diagnostics.CodeAnalysis;
 using MaichessDatabaseService.Domain;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace MaichessDatabaseService.Adapters.Mongo;
 
+[ExcludeFromCodeCoverage]
 internal sealed class MongoRecordRepository : IRecordRepository, IDisposable
 {
     private readonly MongoClient client;
@@ -91,6 +93,19 @@ internal sealed class MongoRecordRepository : IRecordRepository, IDisposable
         {
             throw new NotFoundException($"{collection}/{id} not found");
         }
+    }
+
+    public async Task<long> DeleteWhereAsync(string collection, IReadOnlyDictionary<string, object?> filter, CancellationToken ct)
+    {
+        DeleteResult result = await GetCollection(db, collection)
+            .DeleteManyAsync(BuildFilter(filter), ct);
+        return result.DeletedCount;
+    }
+
+    public async Task<long> CountAsync(string collection, IReadOnlyDictionary<string, object?> filter, CancellationToken ct)
+    {
+        return await GetCollection(db, collection)
+            .CountDocumentsAsync(BuildFilter(filter), cancellationToken: ct);
     }
 
     private static IMongoCollection<BsonDocument> GetCollection(IMongoDatabase database, string name) =>

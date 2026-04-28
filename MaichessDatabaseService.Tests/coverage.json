@@ -1,0 +1,819 @@
+{
+  "MaichessDatabaseService.dll": {
+    "C:\\Users\\micro\\source\\MaiChess\\services\\maichess-database-service\\Grpc\\DatabaseGrpcService.cs": {
+      "MaichessDatabaseService.Grpc.DatabaseGrpcService": {
+        "System.Void MaichessDatabaseService.Grpc.DatabaseGrpcService::.ctor(MaichessDatabaseService.Domain.IRecordRepository)": {
+          "Lines": {
+            "8": 27
+          },
+          "Branches": []
+        }
+      },
+      "MaichessDatabaseService.Grpc.DatabaseGrpcService/<Count>d__4": {
+        "System.Void MaichessDatabaseService.Grpc.DatabaseGrpcService/<Count>d__4::MoveNext()": {
+          "Lines": {
+            "42": 4,
+            "43": 4,
+            "44": 1,
+            "45": 1,
+            "48": 3,
+            "49": 3,
+            "50": 3,
+            "52": 3,
+            "53": 3,
+            "54": 3
+          },
+          "Branches": [
+            {
+              "Line": 43,
+              "Offset": 36,
+              "EndOffset": 38,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 43,
+              "Offset": 36,
+              "EndOffset": 56,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 3
+            },
+            {
+              "Line": 48,
+              "Offset": 68,
+              "EndOffset": 70,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 2
+            },
+            {
+              "Line": 48,
+              "Offset": 68,
+              "EndOffset": 77,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 1
+            }
+          ]
+        }
+      },
+      "MaichessDatabaseService.Grpc.DatabaseGrpcService/<Delete>d__7": {
+        "System.Void MaichessDatabaseService.Grpc.DatabaseGrpcService/<Delete>d__7::MoveNext()": {
+          "Lines": {
+            "109": 4,
+            "110": 4,
+            "111": 1,
+            "112": 1,
+            "116": 3,
+            "117": 3,
+            "118": 1,
+            "120": 1,
+            "121": 1,
+            "122": 1,
+            "124": 1,
+            "125": 1,
+            "126": 1,
+            "128": 1
+          },
+          "Branches": [
+            {
+              "Line": 110,
+              "Offset": 33,
+              "EndOffset": 35,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 110,
+              "Offset": 33,
+              "EndOffset": 53,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 3
+            }
+          ]
+        }
+      },
+      "MaichessDatabaseService.Grpc.DatabaseGrpcService/<DeleteWhere>d__8": {
+        "System.Void MaichessDatabaseService.Grpc.DatabaseGrpcService/<DeleteWhere>d__8::MoveNext()": {
+          "Lines": {
+            "131": 4,
+            "132": 4,
+            "133": 1,
+            "134": 1,
+            "138": 3,
+            "139": 3,
+            "140": 3,
+            "141": 3,
+            "143": 3,
+            "144": 2,
+            "146": 1,
+            "147": 1,
+            "148": 1,
+            "150": 2
+          },
+          "Branches": [
+            {
+              "Line": 132,
+              "Offset": 33,
+              "EndOffset": 35,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 132,
+              "Offset": 33,
+              "EndOffset": 53,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 3
+            },
+            {
+              "Line": 139,
+              "Offset": 77,
+              "EndOffset": 79,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 2
+            },
+            {
+              "Line": 139,
+              "Offset": 77,
+              "EndOffset": 86,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 1
+            }
+          ]
+        }
+      },
+      "MaichessDatabaseService.Grpc.DatabaseGrpcService/<Get>d__2": {
+        "System.Void MaichessDatabaseService.Grpc.DatabaseGrpcService/<Get>d__2::MoveNext()": {
+          "Lines": {
+            "11": 3,
+            "12": 3,
+            "13": 1,
+            "14": 1,
+            "17": 2,
+            "18": 2,
+            "19": 1,
+            "20": 1
+          },
+          "Branches": [
+            {
+              "Line": 12,
+              "Offset": 36,
+              "EndOffset": 38,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 12,
+              "Offset": 36,
+              "EndOffset": 56,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 2
+            },
+            {
+              "Line": 17,
+              "Offset": 209,
+              "EndOffset": 211,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 1
+            },
+            {
+              "Line": 17,
+              "Offset": 209,
+              "EndOffset": 261,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 1
+            }
+          ]
+        }
+      },
+      "MaichessDatabaseService.Grpc.DatabaseGrpcService/<Insert>d__5": {
+        "System.Void MaichessDatabaseService.Grpc.DatabaseGrpcService/<Insert>d__5::MoveNext()": {
+          "Lines": {
+            "57": 4,
+            "58": 4,
+            "59": 1,
+            "60": 1,
+            "64": 3,
+            "65": 3,
+            "66": 3,
+            "67": 3,
+            "68": 1,
+            "70": 1,
+            "71": 1,
+            "72": 1,
+            "74": 1,
+            "75": 1,
+            "76": 1,
+            "78": 1
+          },
+          "Branches": [
+            {
+              "Line": 58,
+              "Offset": 33,
+              "EndOffset": 35,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 58,
+              "Offset": 33,
+              "EndOffset": 53,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 3
+            }
+          ]
+        }
+      },
+      "MaichessDatabaseService.Grpc.DatabaseGrpcService/<List>d__3": {
+        "System.Void MaichessDatabaseService.Grpc.DatabaseGrpcService/<List>d__3::MoveNext()": {
+          "Lines": {
+            "23": 3,
+            "24": 3,
+            "25": 1,
+            "26": 1,
+            "29": 2,
+            "30": 2,
+            "31": 2,
+            "33": 2,
+            "34": 2,
+            "36": 2,
+            "37": 2,
+            "38": 2,
+            "39": 2
+          },
+          "Branches": [
+            {
+              "Line": 24,
+              "Offset": 36,
+              "EndOffset": 38,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 24,
+              "Offset": 36,
+              "EndOffset": 56,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 2
+            },
+            {
+              "Line": 29,
+              "Offset": 68,
+              "EndOffset": 70,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 1
+            },
+            {
+              "Line": 29,
+              "Offset": 68,
+              "EndOffset": 77,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 1
+            }
+          ]
+        }
+      },
+      "MaichessDatabaseService.Grpc.DatabaseGrpcService/<Update>d__6": {
+        "System.Void MaichessDatabaseService.Grpc.DatabaseGrpcService/<Update>d__6::MoveNext()": {
+          "Lines": {
+            "81": 5,
+            "82": 5,
+            "83": 1,
+            "84": 1,
+            "88": 4,
+            "89": 4,
+            "90": 4,
+            "91": 4,
+            "92": 1,
+            "94": 1,
+            "95": 1,
+            "96": 1,
+            "98": 1,
+            "99": 1,
+            "100": 1,
+            "102": 1,
+            "103": 1,
+            "104": 1,
+            "106": 1
+          },
+          "Branches": [
+            {
+              "Line": 82,
+              "Offset": 33,
+              "EndOffset": 35,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 82,
+              "Offset": 33,
+              "EndOffset": 53,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 4
+            }
+          ]
+        }
+      }
+    },
+    "C:\\Users\\micro\\source\\MaiChess\\services\\maichess-database-service\\Grpc\\StructConvert.cs": {
+      "MaichessDatabaseService.Grpc.StructConvert": {
+        "Google.Protobuf.WellKnownTypes.Struct MaichessDatabaseService.Grpc.StructConvert::ToStruct(MaichessDatabaseService.Domain.DbRecord)": {
+          "Lines": {
+            "10": 18,
+            "11": 18,
+            "12": 18,
+            "13": 90,
+            "14": 18,
+            "15": 18,
+            "16": 18,
+            "18": 18,
+            "19": 18
+          },
+          "Branches": [
+            {
+              "Line": 13,
+              "Offset": 103,
+              "EndOffset": 50,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 18
+            },
+            {
+              "Line": 13,
+              "Offset": 103,
+              "EndOffset": 105,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 18
+            }
+          ]
+        },
+        "System.Collections.Generic.Dictionary`2<System.String,System.Object> MaichessDatabaseService.Grpc.StructConvert::ToDictionary(Google.Protobuf.WellKnownTypes.Struct)": {
+          "Lines": {
+            "22": 18,
+            "23": 18,
+            "24": 80,
+            "25": 13,
+            "26": 13,
+            "27": 13,
+            "29": 18,
+            "30": 18
+          },
+          "Branches": [
+            {
+              "Line": 24,
+              "Offset": 81,
+              "EndOffset": 33,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 13
+            },
+            {
+              "Line": 24,
+              "Offset": 81,
+              "EndOffset": 83,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 18
+            }
+          ]
+        },
+        "Google.Protobuf.WellKnownTypes.Value MaichessDatabaseService.Grpc.StructConvert::ObjectToValue(System.Object)": {
+          "Lines": {
+            "32": 21,
+            "33": 21,
+            "34": 1,
+            "35": 1,
+            "36": 1,
+            "37": 1,
+            "38": 1,
+            "39": 1,
+            "40": 9,
+            "41": 1,
+            "42": 1,
+            "43": 1,
+            "44": 1,
+            "45": 1,
+            "46": 1,
+            "47": 21
+          },
+          "Branches": [
+            {
+              "Line": 32,
+              "Offset": 5,
+              "EndOffset": 10,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 20
+            },
+            {
+              "Line": 32,
+              "Offset": 16,
+              "EndOffset": 18,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 1
+            },
+            {
+              "Line": 32,
+              "Offset": 16,
+              "EndOffset": 30,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 19
+            },
+            {
+              "Line": 32,
+              "Offset": 36,
+              "EndOffset": 38,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 1
+            },
+            {
+              "Line": 32,
+              "Offset": 36,
+              "EndOffset": 50,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 18
+            },
+            {
+              "Line": 32,
+              "Offset": 56,
+              "EndOffset": 58,
+              "Path": 0,
+              "Ordinal": 6,
+              "Hits": 1
+            },
+            {
+              "Line": 32,
+              "Offset": 56,
+              "EndOffset": 70,
+              "Path": 1,
+              "Ordinal": 7,
+              "Hits": 17
+            },
+            {
+              "Line": 32,
+              "Offset": 76,
+              "EndOffset": 78,
+              "Path": 0,
+              "Ordinal": 8,
+              "Hits": 1
+            },
+            {
+              "Line": 32,
+              "Offset": 76,
+              "EndOffset": 90,
+              "Path": 1,
+              "Ordinal": 9,
+              "Hits": 16
+            },
+            {
+              "Line": 32,
+              "Offset": 96,
+              "EndOffset": 98,
+              "Path": 0,
+              "Ordinal": 10,
+              "Hits": 1
+            },
+            {
+              "Line": 32,
+              "Offset": 96,
+              "EndOffset": 111,
+              "Path": 1,
+              "Ordinal": 11,
+              "Hits": 15
+            },
+            {
+              "Line": 32,
+              "Offset": 121,
+              "EndOffset": 126,
+              "Path": 0,
+              "Ordinal": 12,
+              "Hits": 6
+            },
+            {
+              "Line": 32,
+              "Offset": 132,
+              "EndOffset": 134,
+              "Path": 0,
+              "Ordinal": 14,
+              "Hits": 1
+            },
+            {
+              "Line": 32,
+              "Offset": 132,
+              "EndOffset": 147,
+              "Path": 1,
+              "Ordinal": 15,
+              "Hits": 5
+            },
+            {
+              "Line": 32,
+              "Offset": 153,
+              "EndOffset": 155,
+              "Path": 0,
+              "Ordinal": 16,
+              "Hits": 1
+            },
+            {
+              "Line": 32,
+              "Offset": 153,
+              "EndOffset": 168,
+              "Path": 1,
+              "Ordinal": 17,
+              "Hits": 4
+            },
+            {
+              "Line": 32,
+              "Offset": 174,
+              "EndOffset": 176,
+              "Path": 0,
+              "Ordinal": 18,
+              "Hits": 1
+            },
+            {
+              "Line": 32,
+              "Offset": 174,
+              "EndOffset": 189,
+              "Path": 1,
+              "Ordinal": 19,
+              "Hits": 3
+            },
+            {
+              "Line": 32,
+              "Offset": 199,
+              "EndOffset": 204,
+              "Path": 0,
+              "Ordinal": 20,
+              "Hits": 2
+            },
+            {
+              "Line": 32,
+              "Offset": 5,
+              "EndOffset": 224,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            },
+            {
+              "Line": 32,
+              "Offset": 121,
+              "EndOffset": 317,
+              "Path": 1,
+              "Ordinal": 13,
+              "Hits": 9
+            },
+            {
+              "Line": 32,
+              "Offset": 199,
+              "EndOffset": 416,
+              "Path": 1,
+              "Ordinal": 21,
+              "Hits": 1
+            },
+            {
+              "Line": 32,
+              "Offset": 214,
+              "EndOffset": 434,
+              "Path": 1,
+              "Ordinal": 23,
+              "Hits": 1
+            },
+            {
+              "Line": 32,
+              "Offset": 214,
+              "EndOffset": 487,
+              "Path": 0,
+              "Ordinal": 22,
+              "Hits": 1
+            },
+            {
+              "Line": 46,
+              "Offset": 494,
+              "EndOffset": 496,
+              "Path": 0,
+              "Ordinal": 24,
+              "Hits": 0
+            },
+            {
+              "Line": 46,
+              "Offset": 494,
+              "EndOffset": 502,
+              "Path": 1,
+              "Ordinal": 25,
+              "Hits": 1
+            }
+          ]
+        },
+        "System.Object MaichessDatabaseService.Grpc.StructConvert::ValueToObject(Google.Protobuf.WellKnownTypes.Value)": {
+          "Lines": {
+            "49": 15,
+            "50": 15,
+            "51": 1,
+            "52": 1,
+            "53": 2,
+            "54": 8,
+            "55": 1,
+            "56": 1,
+            "57": 1,
+            "58": 15
+          },
+          "Branches": [
+            {
+              "Line": 49,
+              "Offset": 14,
+              "EndOffset": 45,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            },
+            {
+              "Line": 49,
+              "Offset": 14,
+              "EndOffset": 49,
+              "Path": 4,
+              "Ordinal": 4,
+              "Hits": 1
+            },
+            {
+              "Line": 49,
+              "Offset": 14,
+              "EndOffset": 63,
+              "Path": 2,
+              "Ordinal": 2,
+              "Hits": 2
+            },
+            {
+              "Line": 49,
+              "Offset": 14,
+              "EndOffset": 77,
+              "Path": 3,
+              "Ordinal": 3,
+              "Hits": 8
+            },
+            {
+              "Line": 49,
+              "Offset": 14,
+              "EndOffset": 86,
+              "Path": 5,
+              "Ordinal": 5,
+              "Hits": 1
+            },
+            {
+              "Line": 49,
+              "Offset": 14,
+              "EndOffset": 100,
+              "Path": 6,
+              "Ordinal": 6,
+              "Hits": 1
+            },
+            {
+              "Line": 49,
+              "Offset": 14,
+              "EndOffset": 151,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            }
+          ]
+        },
+        "Google.Protobuf.WellKnownTypes.Struct MaichessDatabaseService.Grpc.StructConvert::DictToStruct(System.Collections.Generic.IDictionary`2<System.String,System.Object>)": {
+          "Lines": {
+            "61": 1,
+            "62": 1,
+            "63": 5,
+            "64": 1,
+            "65": 1,
+            "66": 1,
+            "68": 1,
+            "69": 1
+          },
+          "Branches": [
+            {
+              "Line": 63,
+              "Offset": 70,
+              "EndOffset": 17,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            },
+            {
+              "Line": 63,
+              "Offset": 70,
+              "EndOffset": 72,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            }
+          ]
+        }
+      }
+    },
+    "C:\\Users\\micro\\source\\MaiChess\\services\\maichess-database-service\\Domain\\AlreadyExistsException.cs": {
+      "MaichessDatabaseService.Domain.AlreadyExistsException": {
+        "System.Void MaichessDatabaseService.Domain.AlreadyExistsException::.ctor(System.String)": {
+          "Lines": {
+            "3": 2
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\micro\\source\\MaiChess\\services\\maichess-database-service\\Domain\\NotFoundException.cs": {
+      "MaichessDatabaseService.Domain.NotFoundException": {
+        "System.Void MaichessDatabaseService.Domain.NotFoundException::.ctor(System.String)": {
+          "Lines": {
+            "3": 2
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\micro\\source\\MaiChess\\services\\maichess-database-service\\Domain\\ReadOnlyViolationException.cs": {
+      "MaichessDatabaseService.Domain.ReadOnlyViolationException": {
+        "System.Void MaichessDatabaseService.Domain.ReadOnlyViolationException::.ctor()": {
+          "Lines": {
+            "4": 8
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\micro\\source\\MaiChess\\services\\maichess-database-service\\Adapters\\ReadOnlyRecordRepository.cs": {
+      "MaichessDatabaseService.Adapters.ReadOnlyRecordRepository": {
+        "System.Threading.Tasks.Task`1<MaichessDatabaseService.Domain.DbRecord> MaichessDatabaseService.Adapters.ReadOnlyRecordRepository::GetAsync(System.String,System.String,System.Threading.CancellationToken)": {
+          "Lines": {
+            "8": 1
+          },
+          "Branches": []
+        },
+        "System.Threading.Tasks.Task`1<System.Collections.Generic.IReadOnlyList`1<MaichessDatabaseService.Domain.DbRecord>> MaichessDatabaseService.Adapters.ReadOnlyRecordRepository::ListAsync(System.String,System.Collections.Generic.IReadOnlyDictionary`2<System.String,System.Object>,System.Int32,System.Int32,System.Threading.CancellationToken)": {
+          "Lines": {
+            "16": 1
+          },
+          "Branches": []
+        },
+        "System.Threading.Tasks.Task`1<MaichessDatabaseService.Domain.DbRecord> MaichessDatabaseService.Adapters.ReadOnlyRecordRepository::InsertAsync(System.String,System.Collections.Generic.IReadOnlyDictionary`2<System.String,System.Object>,System.Threading.CancellationToken)": {
+          "Lines": {
+            "19": 1
+          },
+          "Branches": []
+        },
+        "System.Threading.Tasks.Task`1<MaichessDatabaseService.Domain.DbRecord> MaichessDatabaseService.Adapters.ReadOnlyRecordRepository::UpdateAsync(System.String,System.String,System.Collections.Generic.IReadOnlyDictionary`2<System.String,System.Object>,System.Threading.CancellationToken)": {
+          "Lines": {
+            "22": 1
+          },
+          "Branches": []
+        },
+        "System.Threading.Tasks.Task MaichessDatabaseService.Adapters.ReadOnlyRecordRepository::DeleteAsync(System.String,System.String,System.Threading.CancellationToken)": {
+          "Lines": {
+            "25": 1
+          },
+          "Branches": []
+        },
+        "System.Threading.Tasks.Task`1<System.Int64> MaichessDatabaseService.Adapters.ReadOnlyRecordRepository::DeleteWhereAsync(System.String,System.Collections.Generic.IReadOnlyDictionary`2<System.String,System.Object>,System.Threading.CancellationToken)": {
+          "Lines": {
+            "28": 1
+          },
+          "Branches": []
+        },
+        "System.Threading.Tasks.Task`1<System.Int64> MaichessDatabaseService.Adapters.ReadOnlyRecordRepository::CountAsync(System.String,System.Collections.Generic.IReadOnlyDictionary`2<System.String,System.Object>,System.Threading.CancellationToken)": {
+          "Lines": {
+            "31": 1
+          },
+          "Branches": []
+        },
+        "System.Void MaichessDatabaseService.Adapters.ReadOnlyRecordRepository::.ctor(MaichessDatabaseService.Domain.IRecordRepository)": {
+          "Lines": {
+            "5": 7
+          },
+          "Branches": []
+        }
+      }
+    }
+  }
+}

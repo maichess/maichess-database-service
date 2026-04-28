@@ -14,8 +14,24 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+            <_Parameter1>MaichessDatabaseService.Tests</_Parameter1>
+        </AssemblyAttribute>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+            <_Parameter1>DynamicProxyGenAssembly2</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Remove="MaichessDatabaseService.Tests/**" />
+        <Content Remove="MaichessDatabaseService.Tests/**" />
+        <EmbeddedResource Remove="MaichessDatabaseService.Tests/**" />
+        <None Remove="MaichessDatabaseService.Tests/**" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Grpc.AspNetCore" Version="2.76.0" />
-        <PackageReference Include="Maichess.PlatformProtos" Version="0.2.12" />
+        <PackageReference Include="Maichess.PlatformProtos" Version="0.3.0" />
         <PackageReference Include="MongoDB.Driver" Version="3.1.0" />
         <PackageReference Include="Npgsql" Version="9.0.4" />
         <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.3" />

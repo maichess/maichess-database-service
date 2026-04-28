@@ -16,4 +16,8 @@ internal interface IRecordRepository
     Task<DbRecord> UpdateAsync(string collection, string id, IReadOnlyDictionary<string, object?> fields, CancellationToken ct);
 
     Task DeleteAsync(string collection, string id, CancellationToken ct);
+
+    Task<long> DeleteWhereAsync(string collection, IReadOnlyDictionary<string, object?> filter, CancellationToken ct);
+
+    Task<long> CountAsync(string collection, IReadOnlyDictionary<string, object?> filter, CancellationToken ct);
 }

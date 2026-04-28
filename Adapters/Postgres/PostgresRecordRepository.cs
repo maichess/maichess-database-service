@@ -1,8 +1,10 @@
+using System.Diagnostics.CodeAnalysis;
 using MaichessDatabaseService.Domain;
 using Npgsql;
 
 namespace MaichessDatabaseService.Adapters.Postgres;
 
+[ExcludeFromCodeCoverage]
 internal sealed class PostgresRecordRepository : IRecordRepository
 {
     private readonly NpgsqlDataSource dataSource;
@@ -28,16 +30,8 @@ internal sealed class PostgresRecordRepository : IRecordRepository
         int offset,
         CancellationToken ct)
     {
-        var conditions = new List<string>();
-        var parameters = new List<object?>();
+        (string where, List<object?> parameters) = BuildWhereClause(filter);
 
-        foreach ((string key, object? value) in filter)
-        {
-            parameters.Add(NormalizeValue(value) ?? DBNull.Value);
-            conditions.Add($"{QuoteIdentifier(key)} = ${parameters.Count}");
-        }
-
-        string where = conditions.Count > 0 ? "WHERE " + string.Join(" AND ", conditions) : string.Empty;
         string limitClause = limit > 0 ? $"LIMIT ${parameters.Count + 1}" : string.Empty;
         if (limit > 0)
         {
@@ -148,6 +142,33 @@ internal sealed class PostgresRecordRepository : IRecordRepository
         }
     }
 
+    public async Task<long> DeleteWhereAsync(string collection, IReadOnlyDictionary<string, object?> filter, CancellationToken ct)
+    {
+        (string where, List<object?> parameters) = BuildWhereClause(filter);
+        string sql = $"DELETE FROM {QuoteIdentifier(collection)} {where}";
+        await using NpgsqlCommand cmd = dataSource.CreateCommand(sql);
+        foreach (object? p in parameters)
+        {
+            cmd.Parameters.AddWithValue(p ?? DBNull.Value);
+        }
+
+        return await cmd.ExecuteNonQueryAsync(ct);
+    }
+
+    public async Task<long> CountAsync(string collection, IReadOnlyDictionary<string, object?> filter, CancellationToken ct)
+    {
+        (string where, List<object?> parameters) = BuildWhereClause(filter);
+        string sql = $"SELECT COUNT(*) FROM {QuoteIdentifier(collection)} {where}";
+        await using NpgsqlCommand cmd = dataSource.CreateCommand(sql);
+        foreach (object? p in parameters)
+        {
+            cmd.Parameters.AddWithValue(p ?? DBNull.Value);
+        }
+
+        object? result = await cmd.ExecuteScalarAsync(ct);
+        return result is long l ? l : Convert.ToInt64(result, System.Globalization.CultureInfo.InvariantCulture);
+    }
+
     private static DbRecord ReadRecord(NpgsqlDataReader reader)
     {
         string id = string.Empty;
@@ -183,4 +204,19 @@ internal sealed class PostgresRecordRepository : IRecordRepository
     // instead of text, avoiding "operator does not exist: uuid = text" errors.
     private static object IdParameter(string id) =>
         Guid.TryParse(id, out Guid guid) ? guid : id;
+
+    private static (string Where, List<object?> Parameters) BuildWhereClause(IReadOnlyDictionary<string, object?> filter)
+    {
+        var conditions = new List<string>();
+        var parameters = new List<object?>();
+
+        foreach ((string key, object? value) in filter)
+        {
+            parameters.Add(NormalizeValue(value) ?? DBNull.Value);
+            conditions.Add($"{QuoteIdentifier(key)} = ${parameters.Count}");
+        }
+
+        string where = conditions.Count > 0 ? "WHERE " + string.Join(" AND ", conditions) : string.Empty;
+        return (where, parameters);
+    }
 }
