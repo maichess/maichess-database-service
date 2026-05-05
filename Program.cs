@@ -10,6 +10,11 @@ using OpenTelemetry.Trace;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.Limits.Http2.MaxStreamsPerConnection = 1000;
+});
+
 string adapter = builder.Configuration["Database:Adapter"]
     ?? throw new InvalidOperationException("Database:Adapter is not configured");
 string connectionString = builder.Configuration["Database:ConnectionString"]
