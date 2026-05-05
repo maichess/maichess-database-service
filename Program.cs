@@ -1,6 +1,8 @@
 using MaichessDatabaseService.Adapters;
 using MaichessDatabaseService.Adapters.Mongo;
+using MaichessDatabaseService.Adapters.Mongo.Migrations;
 using MaichessDatabaseService.Adapters.Postgres;
+using MaichessDatabaseService.Adapters.Postgres.Migrations;
 using MaichessDatabaseService.Domain;
 using MaichessDatabaseService.Grpc;
 using OpenTelemetry.Resources;
@@ -45,6 +47,36 @@ builder.Services.AddOpenTelemetry()
 
 WebApplication app = builder.Build();
 
+string[] migrationDomains = (builder.Configuration["Database:Migrations"] ?? string.Empty)
+    .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+if (migrationDomains.Length > 0)
+{
+    Dictionary<string, IMigration> available = adapter.ToLowerInvariant() switch
+    {
+        "postgres" => new Dictionary<string, IMigration>
+        {
+            ["user"] = new UserPostgresMigration(connectionString),
+        },
+        "mongo" => new Dictionary<string, IMigration>
+        {
+            ["match"] = new MatchMongoMigration(connectionString),
+        },
+        _ => new Dictionary<string, IMigration>(),
+    };
+
+    foreach (string domain in migrationDomains)
+    {
+        if (!available.TryGetValue(domain, out IMigration? migration))
+        {
+            throw new InvalidOperationException(
+                $"No '{adapter}' migration found for domain '{domain}'.");
+        }
+
+        await migration.RunAsync(CancellationToken.None);
+    }
+}
+
 app.MapGrpcService<DatabaseGrpcService>();
 
-app.Run();
+await app.RunAsync();
