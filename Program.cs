@@ -12,7 +12,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.Limits.Http2.MaxStreamsPerConnection = 75;
+    options.Limits.Http2.MaxStreamsPerConnection = 100;
 });
 
 string adapter = builder.Configuration["Database:Adapter"]
