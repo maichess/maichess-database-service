@@ -1,0 +1,30 @@
+{
+  "stryker-config": {
+    "project": "MaichessDatabaseService.csproj",
+    "solution": "../maichess-database-service.sln",
+    "test-projects": [
+      "MaichessDatabaseService.Tests.csproj"
+    ],
+    "reporters": [
+      "progress",
+      "html"
+    ],
+    "mutation-level": "Standard",
+    "thresholds": {
+      "high": 80,
+      "low": 60,
+      "break": 0
+    },
+    "mutate": [
+      "!**/Program.cs",
+      "!**/*.g.cs",
+      "!**/*.generated.cs",
+      "!**/Adapters/Postgres/**/*.cs",
+      "!**/Adapters/Mongo/**/*.cs"
+    ],
+    "ignore-methods": [
+      "*Log*",
+      "Console.Write*"
+    ]
+  }
+}

@@ -85,3 +85,11 @@ Instance-level read-only enforcement lives in the decorator, not in the adapter 
 - Do not change tests to make them pass — only change tests when the requirement they cover changes.
 - Unit-test the gRPC layer against a mock `IRecordRepository` — no DB involved.
 - Integration-test each adapter against a real database instance.
+
+### Mutation testing
+
+Stryker.NET is wired up as a local dotnet tool. Config lives in
+`MaichessDatabaseService.Tests/stryker-config.json`; the Postgres and Mongo
+adapter folders are excluded since they require a live database. Run via
+`dotnet tool restore` then `dotnet stryker` inside the test project directory.
+See `README.md` for details.
