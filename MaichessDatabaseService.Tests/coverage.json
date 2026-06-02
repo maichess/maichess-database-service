@@ -4,7 +4,7 @@
       "MaichessDatabaseService.Grpc.DatabaseGrpcService": {
         "System.Void MaichessDatabaseService.Grpc.DatabaseGrpcService::.ctor(MaichessDatabaseService.Domain.IRecordRepository)": {
           "Lines": {
-            "8": 27
+            "8": 29
           },
           "Branches": []
         }
@@ -62,24 +62,24 @@
       "MaichessDatabaseService.Grpc.DatabaseGrpcService/<Delete>d__7": {
         "System.Void MaichessDatabaseService.Grpc.DatabaseGrpcService/<Delete>d__7::MoveNext()": {
           "Lines": {
-            "109": 4,
-            "110": 4,
-            "111": 1,
-            "112": 1,
-            "116": 3,
-            "117": 3,
-            "118": 1,
+            "117": 4,
+            "118": 4,
+            "119": 1,
             "120": 1,
-            "121": 1,
-            "122": 1,
-            "124": 1,
-            "125": 1,
+            "124": 3,
+            "125": 3,
             "126": 1,
-            "128": 1
+            "128": 1,
+            "129": 1,
+            "130": 1,
+            "132": 1,
+            "133": 1,
+            "134": 1,
+            "136": 1
           },
           "Branches": [
             {
-              "Line": 110,
+              "Line": 118,
               "Offset": 33,
               "EndOffset": 35,
               "Path": 0,
@@ -87,7 +87,7 @@
               "Hits": 1
             },
             {
-              "Line": 110,
+              "Line": 118,
               "Offset": 33,
               "EndOffset": 53,
               "Path": 1,
@@ -100,24 +100,24 @@
       "MaichessDatabaseService.Grpc.DatabaseGrpcService/<DeleteWhere>d__8": {
         "System.Void MaichessDatabaseService.Grpc.DatabaseGrpcService/<DeleteWhere>d__8::MoveNext()": {
           "Lines": {
-            "131": 4,
-            "132": 4,
-            "133": 1,
-            "134": 1,
-            "138": 3,
-            "139": 3,
-            "140": 3,
-            "141": 3,
-            "143": 3,
-            "144": 2,
-            "146": 1,
-            "147": 1,
-            "148": 1,
-            "150": 2
+            "139": 4,
+            "140": 4,
+            "141": 1,
+            "142": 1,
+            "146": 3,
+            "147": 3,
+            "148": 3,
+            "149": 3,
+            "151": 3,
+            "152": 2,
+            "154": 1,
+            "155": 1,
+            "156": 1,
+            "158": 2
           },
           "Branches": [
             {
-              "Line": 132,
+              "Line": 140,
               "Offset": 33,
               "EndOffset": 35,
               "Path": 0,
@@ -125,7 +125,7 @@
               "Hits": 1
             },
             {
-              "Line": 132,
+              "Line": 140,
               "Offset": 33,
               "EndOffset": 53,
               "Path": 1,
@@ -133,7 +133,7 @@
               "Hits": 3
             },
             {
-              "Line": 139,
+              "Line": 147,
               "Offset": 77,
               "EndOffset": 79,
               "Path": 0,
@@ -141,7 +141,7 @@
               "Hits": 2
             },
             {
-              "Line": 139,
+              "Line": 147,
               "Offset": 77,
               "EndOffset": 86,
               "Path": 1,
@@ -202,14 +202,14 @@
       "MaichessDatabaseService.Grpc.DatabaseGrpcService/<Insert>d__5": {
         "System.Void MaichessDatabaseService.Grpc.DatabaseGrpcService/<Insert>d__5::MoveNext()": {
           "Lines": {
-            "57": 4,
-            "58": 4,
+            "57": 5,
+            "58": 5,
             "59": 1,
             "60": 1,
-            "64": 3,
-            "65": 3,
-            "66": 3,
-            "67": 3,
+            "64": 4,
+            "65": 4,
+            "66": 4,
+            "67": 4,
             "68": 1,
             "70": 1,
             "71": 1,
@@ -217,7 +217,10 @@
             "74": 1,
             "75": 1,
             "76": 1,
-            "78": 1
+            "78": 1,
+            "79": 1,
+            "80": 1,
+            "82": 1
           },
           "Branches": [
             {
@@ -234,7 +237,7 @@
               "EndOffset": 53,
               "Path": 1,
               "Ordinal": 1,
-              "Hits": 3
+              "Hits": 4
             }
           ]
         }
@@ -295,17 +298,14 @@
       "MaichessDatabaseService.Grpc.DatabaseGrpcService/<Update>d__6": {
         "System.Void MaichessDatabaseService.Grpc.DatabaseGrpcService/<Update>d__6::MoveNext()": {
           "Lines": {
-            "81": 5,
-            "82": 5,
-            "83": 1,
-            "84": 1,
-            "88": 4,
-            "89": 4,
-            "90": 4,
-            "91": 4,
-            "92": 1,
-            "94": 1,
-            "95": 1,
+            "85": 6,
+            "86": 6,
+            "87": 1,
+            "88": 1,
+            "92": 5,
+            "93": 5,
+            "94": 5,
+            "95": 5,
             "96": 1,
             "98": 1,
             "99": 1,
@@ -313,11 +313,17 @@
             "102": 1,
             "103": 1,
             "104": 1,
-            "106": 1
+            "106": 1,
+            "107": 1,
+            "108": 1,
+            "110": 1,
+            "111": 1,
+            "112": 1,
+            "114": 1
           },
           "Branches": [
             {
-              "Line": 82,
+              "Line": 86,
               "Offset": 33,
               "EndOffset": 35,
               "Path": 0,
@@ -325,12 +331,12 @@
               "Hits": 1
             },
             {
-              "Line": 82,
+              "Line": 86,
               "Offset": 33,
               "EndOffset": 53,
               "Path": 1,
               "Ordinal": 1,
-              "Hits": 4
+              "Hits": 5
             }
           ]
         }
@@ -371,14 +377,14 @@
         },
         "System.Collections.Generic.Dictionary`2<System.String,System.Object> MaichessDatabaseService.Grpc.StructConvert::ToDictionary(Google.Protobuf.WellKnownTypes.Struct)": {
           "Lines": {
-            "22": 18,
-            "23": 18,
-            "24": 80,
+            "22": 20,
+            "23": 20,
+            "24": 86,
             "25": 13,
             "26": 13,
             "27": 13,
-            "29": 18,
-            "30": 18
+            "29": 20,
+            "30": 20
           },
           "Branches": [
             {
@@ -395,7 +401,7 @@
               "EndOffset": 83,
               "Path": 0,
               "Ordinal": 0,
-              "Hits": 18
+              "Hits": 20
             }
           ]
         },
@@ -758,6 +764,16 @@
         "System.Void MaichessDatabaseService.Domain.ReadOnlyViolationException::.ctor()": {
           "Lines": {
             "4": 8
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\micro\\source\\MaiChess\\services\\maichess-database-service\\Domain\\RepositoryException.cs": {
+      "MaichessDatabaseService.Domain.RepositoryException": {
+        "System.Void MaichessDatabaseService.Domain.RepositoryException::.ctor(System.String,System.Exception)": {
+          "Lines": {
+            "8": 2
           },
           "Branches": []
         }

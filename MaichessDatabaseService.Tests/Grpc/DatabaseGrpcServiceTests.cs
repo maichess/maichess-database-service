@@ -154,6 +154,21 @@ public sealed class DatabaseGrpcServiceTests
     }
 
     [Fact]
+    public async Task Insert_RepositoryFailure_ReturnsInternal()
+    {
+        IRecordRepository repo = Substitute.For<IRecordRepository>();
+        repo.When(r => r.InsertAsync(Arg.Any<string>(), Arg.Any<IReadOnlyDictionary<string, object?>>(), Arg.Any<CancellationToken>()))
+            .Throw(new RepositoryException("column \"dev_mode\" does not exist"));
+
+        DatabaseGrpcService svc = new(repo);
+        RpcException ex = await Assert.ThrowsAsync<RpcException>(() =>
+            svc.Insert(new InsertRequest { Collection = "col", Record = new Struct() }, TestServerCallContext.Create()));
+
+        Assert.Equal(StatusCode.Internal, ex.StatusCode);
+        Assert.Contains("dev_mode", ex.Status.Detail, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public async Task Insert_EmptyCollection_ReturnsInvalidArgument()
     {
         IRecordRepository repo = Substitute.For<IRecordRepository>();
@@ -225,6 +240,21 @@ public sealed class DatabaseGrpcServiceTests
             svc.Update(new UpdateRequest { Collection = "col", Id = "id", Fields = new Struct() }, TestServerCallContext.Create()));
 
         Assert.Equal(StatusCode.AlreadyExists, ex.StatusCode);
+    }
+
+    [Fact]
+    public async Task Update_RepositoryFailure_ReturnsInternal()
+    {
+        IRecordRepository repo = Substitute.For<IRecordRepository>();
+        repo.When(r => r.UpdateAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<IReadOnlyDictionary<string, object?>>(), Arg.Any<CancellationToken>()))
+            .Throw(new RepositoryException("column \"dev_mode\" does not exist"));
+
+        DatabaseGrpcService svc = new(repo);
+        RpcException ex = await Assert.ThrowsAsync<RpcException>(() =>
+            svc.Update(new UpdateRequest { Collection = "col", Id = "id", Fields = new Struct() }, TestServerCallContext.Create()));
+
+        Assert.Equal(StatusCode.Internal, ex.StatusCode);
+        Assert.Contains("dev_mode", ex.Status.Detail, StringComparison.Ordinal);
     }
 
     [Fact]

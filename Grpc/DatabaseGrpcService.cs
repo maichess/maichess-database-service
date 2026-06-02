@@ -75,6 +75,10 @@ internal sealed class DatabaseGrpcService(IRecordRepository repository) : Databa
         {
             throw new RpcException(new Status(StatusCode.AlreadyExists, ex.Message));
         }
+        catch (RepositoryException ex)
+        {
+            throw new RpcException(new Status(StatusCode.Internal, ex.Message));
+        }
     }
 
     public override async Task<UpdateResponse> Update(UpdateRequest request, ServerCallContext context)
@@ -102,6 +106,10 @@ internal sealed class DatabaseGrpcService(IRecordRepository repository) : Databa
         catch (AlreadyExistsException ex)
         {
             throw new RpcException(new Status(StatusCode.AlreadyExists, ex.Message));
+        }
+        catch (RepositoryException ex)
+        {
+            throw new RpcException(new Status(StatusCode.Internal, ex.Message));
         }
     }
 

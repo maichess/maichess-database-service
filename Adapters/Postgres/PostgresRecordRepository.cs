@@ -89,6 +89,10 @@ internal sealed class PostgresRecordRepository : IRecordRepository
         {
             throw new AlreadyExistsException($"{collection}: unique constraint violated");
         }
+        catch (PostgresException ex)
+        {
+            throw new RepositoryException($"insert into '{collection}' failed: {ex.MessageText}", ex);
+        }
     }
 
     public async Task<DbRecord> UpdateAsync(
@@ -127,6 +131,10 @@ internal sealed class PostgresRecordRepository : IRecordRepository
         catch (PostgresException ex) when (ex.SqlState == "23505")
         {
             throw new AlreadyExistsException($"{collection}: unique constraint violated");
+        }
+        catch (PostgresException ex)
+        {
+            throw new RepositoryException($"update of '{collection}/{id}' failed: {ex.MessageText}", ex);
         }
     }
 
