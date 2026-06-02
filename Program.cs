@@ -66,6 +66,7 @@ if (migrationDomains.Length > 0)
         "mongo" => new Dictionary<string, IMigration>
         {
             ["match"] = new MatchMongoMigration(connectionString),
+            ["arena"] = new ArenaMongoMigration(connectionString),
         },
         _ => new Dictionary<string, IMigration>(),
     };
