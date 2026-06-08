@@ -52,6 +52,13 @@ internal sealed class UserPostgresMigration : IMigration
             UPDATE "users" SET "rating" = "elo" WHERE "rating" IS NULL;
             ALTER TABLE "users" ALTER COLUMN "rating" SET DEFAULT 400;
             ALTER TABLE "users" ALTER COLUMN "rating" SET NOT NULL;
+
+            -- Debezium CDC (feature-prompts/10, change-data-capture.md): emit the full
+            -- old row on UPDATE/DELETE so the CDC->user.events transform can tell which
+            -- fields changed (profile vs rating) per operation. Without FULL, Postgres
+            -- logical replication ships only the primary key in the before-image. The
+            -- users table is low-write, so the extra WAL volume is negligible.
+            ALTER TABLE "users" REPLICA IDENTITY FULL;
             """;
         await cmd.ExecuteNonQueryAsync(ct);
     }
