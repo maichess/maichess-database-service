@@ -1,4 +1,5 @@
 using MaichessDatabaseService.Adapters.Mongo;
+using MaichessDatabaseService.Domain;
 using MaichessDatabaseService.Tests.Support;
 using Xunit;
 
@@ -98,5 +99,34 @@ public sealed class MongoRecordRepositoryIntegrationTests : IDisposable
         long count = await r.CountAsync(collection, new Dictionary<string, object?>(), default);
 
         Assert.Equal(0, count);
+    }
+
+    [RequiresEnvVarFact("MONGO_CONNECTION_STRING")]
+    public async Task InsertAsync_SuppliedId_UsesIdAndIsRetrievable()
+    {
+        MongoRecordRepository r = repo!;
+        string id = Guid.NewGuid().ToString();
+
+        DbRecord inserted = await r.InsertAsync(
+            collection, new Dictionary<string, object?> { ["id"] = id, ["color"] = "red" }, default);
+
+        Assert.Equal(id, inserted.Id);
+        Assert.False(inserted.Fields.ContainsKey("id"));
+
+        DbRecord? fetched = await r.GetAsync(collection, id, default);
+        Assert.NotNull(fetched);
+        Assert.Equal("red", fetched!.Fields["color"]);
+    }
+
+    [RequiresEnvVarFact("MONGO_CONNECTION_STRING")]
+    public async Task InsertAsync_DuplicateSuppliedId_ThrowsAlreadyExists()
+    {
+        MongoRecordRepository r = repo!;
+        string id = Guid.NewGuid().ToString();
+
+        await r.InsertAsync(collection, new Dictionary<string, object?> { ["id"] = id }, default);
+
+        await Assert.ThrowsAsync<AlreadyExistsException>(() =>
+            r.InsertAsync(collection, new Dictionary<string, object?> { ["id"] = id }, default));
     }
 }

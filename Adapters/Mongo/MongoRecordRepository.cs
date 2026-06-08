@@ -56,10 +56,25 @@ internal sealed class MongoRecordRepository : IRecordRepository, IDisposable
         IReadOnlyDictionary<string, object?> fields,
         CancellationToken ct)
     {
-        string id = Guid.NewGuid().ToString();
+        // Honor a caller-supplied id (needed for event-sourced aggregates whose
+        // id is the Kafka partition key); otherwise assign one server-side.
+        string id = fields.TryGetValue("id", out object? supplied) && supplied is string s && s.Length > 0
+            ? s
+            : Guid.NewGuid().ToString();
+
         BsonDocument doc = FieldsToBson(fields);
+        doc.Remove("id");
         doc["_id"] = id;
-        await GetCollection(db, collection).InsertOneAsync(doc, cancellationToken: ct);
+
+        try
+        {
+            await GetCollection(db, collection).InsertOneAsync(doc, cancellationToken: ct);
+        }
+        catch (MongoWriteException ex) when (ex.WriteError?.Category == ServerErrorCategory.DuplicateKey)
+        {
+            throw new AlreadyExistsException($"{collection}/{id} already exists");
+        }
+
         return ToRecord(doc);
     }
 

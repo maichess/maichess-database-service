@@ -63,7 +63,6 @@ internal sealed class DatabaseGrpcService(IRecordRepository repository) : Databa
         try
         {
             var fields = StructConvert.ToDictionary(request.Record);
-            fields.Remove("id");
             DbRecord record = await repository.InsertAsync(request.Collection, fields, context.CancellationToken);
             return new InsertResponse { Record = StructConvert.ToStruct(record) };
         }
