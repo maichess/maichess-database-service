@@ -53,6 +53,11 @@ internal sealed class UserPostgresMigration : IMigration
             ALTER TABLE "users" ALTER COLUMN "rating" SET DEFAULT 400;
             ALTER TABLE "users" ALTER COLUMN "rating" SET NOT NULL;
 
+            -- Recently rated match ids (JSON array, newest first, capped by the user
+            -- service) kept on the row so the Kafka MatchEnded consumer's dedupe marker
+            -- commits atomically with the rating update it guards (kafka task 08).
+            ALTER TABLE "users" ADD COLUMN IF NOT EXISTS "rated_matches" TEXT NOT NULL DEFAULT '[]';
+
             -- Debezium CDC (feature-prompts/10, change-data-capture.md): emit the full
             -- old row on UPDATE/DELETE so the CDC->user.events transform can tell which
             -- fields changed (profile vs rating) per operation. Without FULL, Postgres
