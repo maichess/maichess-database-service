@@ -68,6 +68,7 @@ if (migrationDomains.Length > 0)
             ["match"] = new MatchMongoMigration(connectionString),
             ["arena"] = new ArenaMongoMigration(connectionString),
             ["anticheat"] = new AnticheatMongoMigration(connectionString),
+            ["insights"] = new InsightsMongoMigration(connectionString),
         },
         _ => new Dictionary<string, IMigration>(),
     };
