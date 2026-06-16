@@ -83,5 +83,3 @@ internal sealed class InsightsMongoMigration : IMigration
         }
     }
 }
-</content>
-</invoke>
