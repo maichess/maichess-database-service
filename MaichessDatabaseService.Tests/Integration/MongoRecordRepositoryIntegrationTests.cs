@@ -129,4 +129,26 @@ public sealed class MongoRecordRepositoryIntegrationTests : IDisposable
         await Assert.ThrowsAsync<AlreadyExistsException>(() =>
             r.InsertAsync(collection, new Dictionary<string, object?> { ["id"] = id }, default));
     }
+
+    // A document written directly by another writer (e.g. the insights Spark connector)
+    // has a server-generated ObjectId _id, not the string _id this service assigns. List
+    // must surface it (rendering the id as its string form) rather than throwing on the
+    // whole collection.
+    [RequiresEnvVarFact("MONGO_CONNECTION_STRING")]
+    public async Task ListAsync_DocumentWithObjectIdId_DoesNotThrowAndStringifiesId()
+    {
+        MongoRecordRepository r = repo!;
+        string cs = Environment.GetEnvironmentVariable("MONGO_CONNECTION_STRING")!;
+        var oid = MongoDB.Bson.ObjectId.GenerateNewId();
+        await new MongoDB.Driver.MongoClient(cs)
+            .GetDatabase("maichess")
+            .GetCollection<MongoDB.Bson.BsonDocument>(collection)
+            .InsertOneAsync(new MongoDB.Bson.BsonDocument { ["_id"] = oid, ["corpusId"] = "c1" });
+
+        var records = await r.ListAsync(collection, new Dictionary<string, object?>(), 0, 0, default);
+
+        Assert.Single(records);
+        Assert.Equal(oid.ToString(), records[0].Id);
+        Assert.Equal("c1", records[0].Fields["corpusId"]);
+    }
 }

@@ -155,7 +155,13 @@ internal sealed class MongoRecordRepository : IRecordRepository, IDisposable
 
     private static DbRecord ToRecord(BsonDocument doc)
     {
-        string id = doc.TryGetValue("_id", out BsonValue idVal) ? idVal.AsString : string.Empty;
+        // Records inserted through this service carry a string `_id`, but a collection may
+        // also hold documents written directly by another writer (e.g. the insights Spark
+        // connector), whose `_id` is a server-generated ObjectId. Render any non-string id
+        // as its string form rather than throwing an InvalidCastException on the whole list.
+        string id = doc.TryGetValue("_id", out BsonValue idVal)
+            ? idVal.IsString ? idVal.AsString : idVal.ToString() ?? string.Empty
+            : string.Empty;
         var fields = new Dictionary<string, object?>();
 
         foreach (BsonElement el in doc)
